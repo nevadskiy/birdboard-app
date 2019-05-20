@@ -21,10 +21,6 @@ RUN docker-php-ext-install bcmath
 # MySQL
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Xdebug
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-COPY xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
-
 # Custom php.ini config
 ADD ./custom.ini /usr/local/etc/php/conf.d/custom.ini
 
