@@ -1,3 +1,7 @@
+# Docker TODO
+1. Update readme (add docker-compose build to installation process)
+2. Add new aliases
+
 ### Installation process
 1. Download ZIP or clone the repository
 2. Run laravel.sh script
