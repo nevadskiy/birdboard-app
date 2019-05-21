@@ -9,9 +9,24 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ProjectsTest extends TestCase
+class ManageProjectsTest extends TestCase
 {
     use WithFaker, RefreshDatabase;
+
+    /** @test */
+    function a_user_can_view_a_project_create_page()
+    {
+        $this->actingAs(factory(User::class)->create())
+            ->get(route('projects.create'))
+            ->assertOk();
+    }
+
+    /** @test */
+    function guests_cannot_view_a_project_create_page()
+    {
+        $this->get(route('projects.create'))
+            ->assertRedirect(route('login'));
+    }
 
     /** @test */
     function a_user_can_create_a_project()

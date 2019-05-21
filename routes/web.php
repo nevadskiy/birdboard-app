@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::group([
     'middleware' => 'auth',
 ], function () {
-    Route::resource('projects', 'ProjectsController')->only(['index', 'store', 'show']);
+    Route::resource('projects', 'ProjectsController')->only(['index', 'store', 'show', 'create']);
 
     Route::get('/home', 'HomeController@index')->name('home');
 });
