@@ -22,8 +22,6 @@ class ProjectTest extends TestCase
     /** @test */
     function it_belongs_to_an_owner()
     {
-        $project = factory(Project::class)->create();
-
-        $this->assertInstanceOf(User::class, $project->owner);
+        $this->assertInstanceOf(User::class, factory(Project::class)->create()->owner);
     }
 }

@@ -33,9 +33,7 @@ class ProjectsTest extends TestCase
     /** @test */
     function guests_cannot_create_projects()
     {
-        $attributes = factory(Project::class)->raw();
-
-        $this->post(route('projects.store'), $attributes)
+        $this->post(route('projects.store'), factory(Project::class)->raw())
             ->assertRedirect(route('login'));
     }
 
@@ -49,30 +47,24 @@ class ProjectsTest extends TestCase
     /** @test */
     function guests_cannot_view_a_single_project()
     {
-        $project = factory(Project::class)->create();
-
-        $this->get($project->path())
+        $this->get( factory(Project::class)->create()->path())
             ->assertRedirect(route('login'));
     }
 
     /** @test */
     function a_project_requires_a_title()
     {
-        $this->actingAs(factory(User::class)->create());
-
-        $attributes = factory(Project::class)->raw(['title' => '']);
-
-        $this->post(route('projects.store'), $attributes)->assertSessionHasErrors('title');
+        $this->actingAs(factory(User::class)->create())
+            ->post(route('projects.store'), factory(Project::class)->raw(['title' => '']))
+            ->assertSessionHasErrors('title');
     }
 
     /** @test */
     function a_project_requires_a_description()
     {
-        $this->actingAs(factory(User::class)->create());
-
-        $attributes = factory(Project::class)->raw(['description' => '']);
-
-        $this->post(route('projects.store'), $attributes)->assertSessionHasErrors('description');
+        $this->actingAs(factory(User::class)->create())
+            ->post(route('projects.store'), factory(Project::class)->raw(['description' => '']))
+            ->assertSessionHasErrors('description');
     }
 
     /** @test */
