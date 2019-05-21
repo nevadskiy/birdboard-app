@@ -25,6 +25,7 @@
         <div class="field">
             <div class="control">
                 <button type="submit" class="button is-link">Create Project</button>
+                <a href="{{ route('projects.index') }}">Cancel</a>
             </div>
         </div>
     </form>

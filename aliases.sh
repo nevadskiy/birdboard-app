@@ -1,3 +1,5 @@
+alias own='sudo chown -R $(id -u):$(id -g)'
+
 alias artisan='docker-compose exec --user "$(id -u):$(id -g)" php-cli php artisan'
 alias from='docker-compose exec'
 

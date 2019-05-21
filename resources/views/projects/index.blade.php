@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Birdboard</h1>
+    <a href="{{ route('projects.create') }}">Create project</a>
 
     <ul>
         @forelse ($projects as $project)
