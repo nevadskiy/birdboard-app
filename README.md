@@ -1,6 +1,7 @@
 # Docker TODO
 1. Update readme (add docker-compose build to installation process)
 2. Add new aliases
+3. Add env testing configuration
 
 ### Installation process
 1. Download ZIP or clone the repository
