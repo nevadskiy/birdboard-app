@@ -20,6 +20,8 @@ Route::group([
 ], function () {
     Route::resource('projects', 'ProjectsController')->only(['index', 'store', 'show', 'create']);
 
+    Route::post('projects/{project}/tasks', 'ProjectTasksController@store')->name('project.tasks.store');
+
     Route::get('/home', 'HomeController@index')->name('home');
 });
 

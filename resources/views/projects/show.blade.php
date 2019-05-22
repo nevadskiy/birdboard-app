@@ -13,10 +13,11 @@
             <div class="lg:w-3/4 px-3 mb-6">
                 <div class="mb-8">
                     <h2 class="text-gray-600 text-lg mb-2">Tasks</h2>
-                    <div class="card mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto blanditiis consectetur delectus, distinctio dolorem dolorum earum eligendi facilis hic incidunt ipsam laborum molestias neque nisi obcaecati quae quidem rem soluta?</div>
-                    <div class="card mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto blanditiis consectetur delectus, distinctio dolorem dolorum earum eligendi facilis hic incidunt ipsam laborum molestias neque nisi obcaecati quae quidem rem soluta?</div>
-                    <div class="card mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto blanditiis consectetur delectus, distinctio dolorem dolorum earum eligendi facilis hic incidunt ipsam laborum molestias neque nisi obcaecati quae quidem rem soluta?</div>
-                    <div class="card mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto blanditiis consectetur delectus, distinctio dolorem dolorum earum eligendi facilis hic incidunt ipsam laborum molestias neque nisi obcaecati quae quidem rem soluta?</div>
+                    @foreach ($project->tasks as $task)
+                    <div class="card mb-3">
+                        {{ $task->body }}
+                    </div>
+                    @endforeach
                 </div>
 
                 <h2 class="text-gray-600 text-lg mb-2">General notes</h2>
