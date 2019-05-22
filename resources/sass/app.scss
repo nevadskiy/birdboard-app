@@ -4,3 +4,6 @@
 
 @tailwind utilities;
 
+.card {
+  @apply bg-white rounded shadow px-3 py-4;
+}
