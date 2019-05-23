@@ -25,7 +25,7 @@ class ProjectTasksController extends Controller
 
     public function update(Request $request, Project $project, Task $task)
     {
-        if (auth()->user()->isNot($project->owner)) {
+        if (auth()->user()->isNot($task->project->owner)) {
             abort(403);
         }
 
@@ -38,6 +38,6 @@ class ProjectTasksController extends Controller
             'completed' => $request->has('completed'),
         ]);
 
-        return redirect($project->path());
+        return redirect($task->project->path());
     }
 }
