@@ -14,10 +14,17 @@
                 <div class="mb-8">
                     <h2 class="text-gray-600 text-lg mb-2">Tasks</h2>
                     @foreach ($project->tasks as $task)
-                    <div class="card mb-3">
-                        {{ $task->body }}
-                    </div>
+                        <div class="card mb-3">
+                            {{ $task->body }}
+                        </div>
                     @endforeach
+
+                    <div class="card mb-3">
+                        <form action="{{ route('project.tasks.store', $project) }}" method="POST">
+                            @csrf
+                            <input name="body" type="text" placeholder="Add a new task..." class="w-full">
+                        </form>
+                    </div>
                 </div>
 
                 <h2 class="text-gray-600 text-lg mb-2">General notes</h2>
