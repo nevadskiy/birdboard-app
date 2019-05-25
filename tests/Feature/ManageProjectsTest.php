@@ -161,11 +161,8 @@ class ManageProjectsTest extends TestCase
     /** @test */
     function an_authenticated_user_cannot_update_the_projects_of_others()
     {
-        $this->signIn();
-
-        $project = factory(Project::class)->create();
-
-        $this->put($project->path())
+        $this->signIn()
+            ->put(factory(Project::class)->create()->path())
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

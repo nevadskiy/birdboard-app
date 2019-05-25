@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Project;
 use App\Task;
+use Tests\Factories\ProjectFactory;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,11 +22,9 @@ class ProjectTasksTest extends TestCase
     /** @test */
     function only_owners_of_a_project_may_add_tasks()
     {
-        $this->signIn();
-
         $project = factory(Project::class)->create();
 
-        $this->post(route('project.tasks.store', $project), ['body' => 'Test task'])
+        $this->signIn()->post(route('project.tasks.store', $project), ['body' => 'Test task'])
             ->assertForbidden();
 
         $this->assertDatabaseMissing('tasks', ['body' => 'Test task']);
@@ -34,11 +33,9 @@ class ProjectTasksTest extends TestCase
     /** @test */
     function a_project_can_have_tasks()
     {
-        $this->signIn();
+        $project = factory(Project::class)->create();
 
-        $project = factory(Project::class)->create(['owner_id' => auth()->id()]);
-
-        $this->post(route('project.tasks.store', $project), ['body' => 'Test task']);
+        $this->signIn($project->owner)->post(route('project.tasks.store', $project), ['body' => 'Test task']);
 
         $this->get($project->path())
             ->assertOk()
@@ -48,36 +45,28 @@ class ProjectTasksTest extends TestCase
     /** @test */
     function a_task_can_be_updated()
     {
-        $this->signIn();
+        $project = app(ProjectFactory::class)->withTasks(1)->create();
 
-        $project = factory(Project::class)->create(['owner_id' => auth()->id()]);
-
-        $task = $project->addTask('Test task');
-
-        $this->put($task->path(), [
+        $this->be($project->owner)->put($project->tasks[0]->path(), [
             'body' => 'New body',
             'completed' => true,
         ]);
 
-        $this->assertEquals('New body', $task->fresh()->body);
-        $this->assertTrue($task->fresh()->completed);
+        $this->assertEquals('New body', $project->tasks[0]->fresh()->body);
+        $this->assertTrue($project->tasks[0]->fresh()->completed);
     }
 
     /** @test */
     function only_owners_of_a_project_may_update_a_task()
     {
-        $this->signIn();
+        $project = app(ProjectFactory::class)->withTasks(1)->create();
 
-        $project = factory(Project::class)->create();
-
-        $task = $project->addTask('Test task');
-
-        $response = $this->put($task->path(), [
+        $response = $this->signIn()->put($project->tasks[0]->path(), [
             'body' => 'Test task updated'
         ]);
 
         $response->assertForbidden();
-        $this->assertEquals('Test task', $task->fresh()->body);
+        $this->assertNotEquals('Test task', $project->tasks[0]->fresh()->body);
     }
 
     /** @test */
@@ -87,9 +76,7 @@ class ProjectTasksTest extends TestCase
 
         $project = factory(Project::class)->create(['owner_id' => auth()->id()]);
 
-        $attributes = factory(Task::class)->raw(['body' => '']);
-
-        $this->post(route('project.tasks.store', $project), $attributes)
+        $this->post(route('project.tasks.store', $project), factory(Task::class)->raw(['body' => '']))
             ->assertSessionHasErrors('body');
     }
 }
