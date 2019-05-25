@@ -2,13 +2,14 @@
 
 @section('content')
     <form
-            action="{{ route('projects.store') }}"
+            action="{{ route('projects.update', $project) }}"
             method="POST"
             class="lg:w-1/2 lg:mx-auto bg-white p-6 md:py-12 md:px-16 rounded shadow"
     >
         @csrf
+        @method('PUT')
 
-        <h1 class="text-2xl font-normal mb-10 text-center">Create your project</h1>
+        <h1 class="text-2xl font-normal mb-10 text-center">Edit your project</h1>
 
         <div class="mb-6">
             <label for="title" class="text-sm mb-2 block">Title</label>
@@ -18,6 +19,7 @@
                     class="bg-transparent border border-gray-400 rounded p-2 text-sm w-full"
                     type="text"
                     placeholder="Title"
+                    value="{{ $project->title }}"
             >
         </div>
 
@@ -30,10 +32,10 @@
                     class="block bg-transparent border border-gray-400 rounded p-2 text-sm w-full"
                     type="text"
                     placeholder="Description"
-            ></textarea>
+            >{{ $project->description }}</textarea>
         </div>
 
-        <button type="submit" class="button button--blue mr-2">Create project</button>
-        <a href="{{ route('projects.index') }}">Cancel</a>
+        <button type="submit" class="button button--blue mr-2">Update project</button>
+        <a href="{{ $project->path() }}">Cancel</a>
     </form>
 @endsection

@@ -29,6 +29,13 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    function guests_cannot_view_a_project_edit_page()
+    {
+        $this->get(route('projects.edit', factory(Project::class)->create()))
+            ->assertRedirect(route('login'));
+    }
+
+    /** @test */
     function a_user_can_create_a_project()
     {
         $attributes = [
@@ -46,6 +53,16 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    function a_user_can_view_a_project_update_page()
+    {
+        $project = factory(Project::class)->create();
+
+        $this->signIn($project->owner)
+            ->get(route('projects.edit', $project))
+            ->assertOk();
+    }
+
+    /** @test */
     function a_user_can_update_a_project()
     {
         $project = factory(Project::class)->create();
@@ -53,7 +70,9 @@ class ManageProjectsTest extends TestCase
         $this->signIn($project->owner);
 
         $changedAttributes = [
-            'notes' => 'Changed notes.'
+            'title' => 'Changed title',
+            'description' => 'Changed description',
+            'notes' => 'Changed notes',
         ];
 
         $response = $this->put($project->path(), $changedAttributes);

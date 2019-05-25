@@ -5,7 +5,7 @@
         <p class="text-gray-600 mr-auto text-lg">
             <a href="{{ route('projects.index') }}">My projects</a> / {{ $project->title }}
         </p>
-        <a href="{{ route('projects.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create project</a>
+        <a href="{{ route('projects.edit', $project) }}" class="button button--blue">Edit project</a>
     </header>
 
     <main>
