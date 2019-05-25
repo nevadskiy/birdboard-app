@@ -82,6 +82,20 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    function a_user_can_update_a_general_notes()
+    {
+        $project = factory(Project::class)->create();
+
+        $this->signIn($project->owner)->put($project->path(), [
+            'notes' => 'Changed'
+        ]);
+
+        $this->assertDatabaseHas('projects', [
+            'notes' => 'Changed',
+        ]);
+    }
+
+    /** @test */
     function a_user_can_view_a_project()
     {
         $project = factory(Project::class)->create([
