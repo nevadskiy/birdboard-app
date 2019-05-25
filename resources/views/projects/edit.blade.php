@@ -11,6 +11,8 @@
 
         <h1 class="text-2xl font-normal mb-10 text-center">Edit your project</h1>
 
+        @include('projects._validation')
+
         <div class="mb-6">
             <label for="title" class="text-sm mb-2 block">Title</label>
             <input
@@ -19,7 +21,7 @@
                     class="bg-transparent border border-gray-400 rounded p-2 text-sm w-full"
                     type="text"
                     placeholder="Title"
-                    value="{{ $project->title }}"
+                    value="{{ old('title', $project->title) }}"
             >
         </div>
 
@@ -32,7 +34,7 @@
                     class="block bg-transparent border border-gray-400 rounded p-2 text-sm w-full"
                     type="text"
                     placeholder="Description"
-            >{{ $project->description }}</textarea>
+            >{{ old('description', $project->description) }}</textarea>
         </div>
 
         <button type="submit" class="button button--blue mr-2">Update project</button>

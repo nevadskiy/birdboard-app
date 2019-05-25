@@ -10,6 +10,8 @@
 
         <h1 class="text-2xl font-normal mb-10 text-center">Create your project</h1>
 
+        @include('projects._validation')
+
         <div class="mb-6">
             <label for="title" class="text-sm mb-2 block">Title</label>
             <input
