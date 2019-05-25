@@ -5,7 +5,7 @@
         <h2 class="text-gray-600 mr-auto text-lg">
             <a href="{{ route('projects.index') }}">Projects</a>
         </h2>
-        <a href="{{ route('projects.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create project</a>
+        <a href="{{ route('projects.create') }}" class="button button--blue">Create project</a>
     </header>
 
     <main class="lg:flex lg:flex-wrap -mx-2">

@@ -37,7 +37,18 @@
 
                 <h2 class="text-gray-600 text-lg mb-2">General notes</h2>
 
-                <textarea class="card w-full h-56">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto blanditiis consectetur delectus, distinctio dolorem dolorum earum eligendi facilis hic incidunt ipsam laborum molestias neque nisi obcaecati quae quidem rem soluta?</textarea>
+                <form action="{{ $project->path() }}" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <textarea
+                            name="notes"
+                            class="card w-full h-56 mb-4"
+                            placeholder="Enter something special to make a note of..."
+                    >{{ $project->notes }}</textarea>
+
+                    <button type="submit" class="button button--blue">Save</button>
+                </form>
             </div>
 
             <div class="lg:w-1/4 px-3">

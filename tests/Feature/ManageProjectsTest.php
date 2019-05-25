@@ -33,13 +33,50 @@ class ManageProjectsTest extends TestCase
     {
         $attributes = [
             'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->sentence,
+            'notes' => 'General notes for test.'
         ];
 
         $response = $this->signIn()->post(route('projects.store'), $attributes);
 
-        $response->assertRedirect(Project::where($attributes)->first()->path());
+        $project = Project::where($attributes)->first();
+
+        $response->assertRedirect($project->path());
         $this->assertDatabaseHas('projects', $attributes);
+    }
+
+    /** @test */
+    function a_user_can_update_a_project()
+    {
+        $project = factory(Project::class)->create();
+
+        $this->signIn($project->owner);
+
+        $changedAttributes = [
+            'notes' => 'Changed notes.'
+        ];
+
+        $response = $this->put($project->path(), $changedAttributes);
+
+        $response->assertRedirect($project->path());
+        $this->assertDatabaseHas('projects', $changedAttributes);
+    }
+
+    /** @test */
+    function a_user_can_view_a_project()
+    {
+        $project = factory(Project::class)->create([
+            'title' => 'Project title',
+            'description' => 'Project description',
+            'notes' => 'General notes for test.'
+        ]);
+
+        $this->signIn($project->owner);
+
+        $this->get($project->path())
+            ->assertSee('Project title')
+            ->assertSee('Project description')
+            ->assertSee('General notes for test.');
     }
 
     /** @test */
@@ -99,6 +136,17 @@ class ManageProjectsTest extends TestCase
     {
         $this->signIn()
             ->get(factory(Project::class)->create()->path())
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /** @test */
+    function an_authenticated_user_cannot_update_the_projects_of_others()
+    {
+        $this->signIn();
+
+        $project = factory(Project::class)->create();
+
+        $this->put($project->path())
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

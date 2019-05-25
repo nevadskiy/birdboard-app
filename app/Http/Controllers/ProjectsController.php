@@ -17,9 +17,7 @@ class ProjectsController extends Controller
 
     public function show(Project $project)
     {
-        if (auth()->user()->isNot($project->owner)) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        $this->authorize('update', $project);
 
         return view('projects.show', compact('project'));
     }
@@ -34,9 +32,23 @@ class ProjectsController extends Controller
         $attributes = $this->validate($request, [
             'title' => ['required'],
             'description' => ['required'],
+            'notes' => ['min:3'],
         ]);
 
         $project = auth()->user()->projects()->create($attributes);
+
+        return redirect($project->path());
+    }
+
+    public function update(Request $request, Project $project)
+    {
+        $this->authorize('update', $project);
+
+        $attributes = $this->validate($request, [
+            'notes' => ['min:3'],
+        ]);
+
+        $project->update($attributes);
 
         return redirect($project->path());
     }
