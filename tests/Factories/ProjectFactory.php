@@ -12,11 +12,11 @@ class ProjectFactory
 
     private $user;
 
-    public function create(): Project
+    public function create(array $attributes = []): Project
     {
-        $project = factory(Project::class)->create([
-             'owner_id' => $this->user ? $this->user->id : factory(User::class)->create()->id,
-        ]);
+        $project = factory(Project::class)->create(array_merge($attributes, [
+            'owner_id' => $this->user ? $this->user->id : factory(User::class)->create()->id,
+        ]));
 
         factory(Task::class, $this->tasksCount)->create([
             'project_id' => $project->id

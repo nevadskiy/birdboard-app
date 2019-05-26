@@ -31,6 +31,9 @@ remove-volumes:
 migrate:
 	docker-compose exec php-cli php artisan migrate
 
+rollback:
+	docker-compose exec php-cli php artisan migrate:rollback
+
 seed:
 	docker-compose exec php-cli php artisan db:seed
 
