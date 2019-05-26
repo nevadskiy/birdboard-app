@@ -12,6 +12,23 @@ class Task extends Model
         'completed' => 'bool'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Task $task) {
+            $task->project->recordActivity('task_created');
+        });
+
+        static::updated(function (Task $task) {
+            if (! $task->completed) {
+                return;
+            }
+
+            $task->project->recordActivity('task_completed');
+        });
+    }
+
     protected $touches = [
         'project',
     ];
@@ -26,5 +43,10 @@ class Task extends Model
         return route('project.tasks.update', [
             'task' => $this->id, 'project' => $this->project_id
         ]);
+    }
+
+    public function complete()
+    {
+        return $this->update(['completed' => true]);
     }
 }

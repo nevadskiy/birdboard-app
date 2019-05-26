@@ -11,15 +11,11 @@ class Project extends Model
         parent::boot();
 
         static::created(function (Project $project) {
-            $project->activity()->create([
-                'description' => 'created',
-            ]);
+            $project->recordActivity('created');
         });
 
         static::updated(function (Project $project) {
-            $project->activity()->create([
-                'description' => 'updated',
-            ]);
+            $project->recordActivity('updated');
         });
     }
 
@@ -48,5 +44,10 @@ class Project extends Model
     public function activity()
     {
         return $this->hasMany(Activity::class);
+    }
+
+    public function recordActivity(string $description)
+    {
+        return $this->activity()->create(compact('description'));
     }
 }
