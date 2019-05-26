@@ -49,4 +49,9 @@ class Task extends Model
     {
         return $this->update(['completed' => true]);
     }
+
+    public function incomplete()
+    {
+        return $this->update(['completed' => false]);
+    }
 }

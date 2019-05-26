@@ -47,13 +47,43 @@ class ProjectTasksTest extends TestCase
     {
         $project = app(ProjectFactory::class)->withTasks(1)->create();
 
-        $this->be($project->owner)->put($project->tasks[0]->path(), [
+        $this->signIn($project->owner)->put($project->tasks[0]->path(), [
+            'body' => 'New body',
+        ]);
+
+        $this->assertEquals('New body', $project->tasks[0]->fresh()->body);
+    }
+
+    /** @test */
+    function a_task_can_be_completed()
+    {
+        $project = app(ProjectFactory::class)->withTasks(1)->create();
+
+        $this->signIn($project->owner)->put($project->tasks[0]->path(), [
             'body' => 'New body',
             'completed' => true,
         ]);
 
         $this->assertEquals('New body', $project->tasks[0]->fresh()->body);
         $this->assertTrue($project->tasks[0]->fresh()->completed);
+    }
+
+    /** @test */
+    function a_task_can_be_marked_as_incompleted()
+    {
+        $project = app(ProjectFactory::class)->withTasks(1)->create();
+
+        $this->signIn($project->owner)->put($project->tasks[0]->path(), [
+            'body' => $project->tasks[0]->body,
+            'completed' => true,
+        ]);
+
+        $this->signIn($project->owner)->put($project->tasks[0]->path(), [
+            'body' => $project->tasks[0]->body,
+            'completed' => false,
+        ]);
+
+        $this->assertFalse($project->tasks[0]->fresh()->completed);
     }
 
     /** @test */
