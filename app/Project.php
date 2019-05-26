@@ -6,19 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function (Project $project) {
-            $project->recordActivity('created');
-        });
-
-        static::updated(function (Project $project) {
-            $project->recordActivity('updated');
-        });
-    }
-
     protected $guarded = [];
 
     public function path(): string

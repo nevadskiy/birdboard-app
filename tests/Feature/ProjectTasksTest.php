@@ -69,7 +69,7 @@ class ProjectTasksTest extends TestCase
     }
 
     /** @test */
-    function a_task_can_be_marked_as_incompleted()
+    function a_task_can_be_marked_as_uncompleted()
     {
         $project = app(ProjectFactory::class)->withTasks(1)->create();
 
@@ -78,7 +78,7 @@ class ProjectTasksTest extends TestCase
             'completed' => true,
         ]);
 
-        $this->signIn($project->owner)->put($project->tasks[0]->path(), [
+        $this->put($project->tasks[0]->path(), [
             'body' => $project->tasks[0]->body,
             'completed' => false,
         ]);
