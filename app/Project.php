@@ -6,6 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Project $project) {
+            $project->activity()->create([
+                'description' => 'created',
+            ]);
+        });
+
+        static::updated(function (Project $project) {
+            $project->activity()->create([
+                'description' => 'updated',
+            ]);
+        });
+    }
+
     protected $guarded = [];
 
     public function path(): string
@@ -26,5 +43,10 @@ class Project extends Model
     public function addTask(string $body)
     {
         return $this->tasks()->create(compact('body'));
+    }
+
+    public function activity()
+    {
+        return $this->hasMany(Activity::class);
     }
 }
