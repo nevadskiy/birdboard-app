@@ -50,8 +50,18 @@ class Task extends Model
     public function recordActivity(string $description)
     {
         return $this->activity()->create([
+            'user_id' => $this->activityOwner()->id,
             'project_id' => $this->project_id,
             'description' => $description,
         ]);
+    }
+
+    public function activityOwner()
+    {
+        if (auth()->check()) {
+            return auth()->user();
+        }
+
+        return $this->project->owner;
     }
 }

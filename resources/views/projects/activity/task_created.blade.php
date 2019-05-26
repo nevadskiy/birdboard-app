@@ -1,1 +1,1 @@
-You created a task <span class="text-blue-700">{{ $activity->subject->body }}</span>
+{{ $activity->user->name }} created a task <span class="text-blue-700">{{ $activity->subject->body }}</span>
