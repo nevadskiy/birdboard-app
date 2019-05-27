@@ -65,6 +65,20 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    function a_user_can_see_all_projects_they_have_been_invited_to_on_their_dashboard()
+    {
+        $project = factory(Project::class)->create();
+
+        $user = factory(User::class)->create();
+
+        $project->invite($user);
+
+        $this->signIn($user)
+            ->get(route('projects.index'))
+            ->assertSee($project->title);
+    }
+
+    /** @test */
     function guests_cannot_delete_a_project()
     {
         $project = factory(Project::class)->create();
