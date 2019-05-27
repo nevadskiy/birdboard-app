@@ -53,6 +53,41 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    function a_user_can_delete_a_project()
+    {
+        $project = factory(Project::class)->create();
+
+        $this->signIn($project->owner)
+            ->delete($project->path())
+            ->assertRedirect(route('projects.index'));
+
+        $this->assertDatabaseMissing('projects', $project->only('id'));
+    }
+
+    /** @test */
+    function guests_cannot_delete_a_project()
+    {
+        $project = factory(Project::class)->create();
+
+        $this->delete($project->path())
+            ->assertRedirect(route('login'));
+
+        $this->assertDatabaseHas('projects', $project->only('id'));
+    }
+
+    /** @test */
+    function user_cannot_delete_a_project_of_others()
+    {
+        $project = factory(Project::class)->create();
+
+        $this->signIn()
+            ->delete($project->path())
+            ->assertForbidden();
+
+        $this->assertDatabaseHas('projects', $project->only('id'));
+    }
+
+    /** @test */
     function a_user_can_view_a_project_update_page()
     {
         $project = factory(Project::class)->create();

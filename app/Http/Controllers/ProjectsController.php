@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Project;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class ProjectsController extends Controller
 {
@@ -51,5 +50,14 @@ class ProjectsController extends Controller
     public function update(ProjectUpdateRequest $form, Project $project)
     {
         return redirect($form->save()->path());
+    }
+
+    public function destroy(Project $project)
+    {
+        $this->authorize('update', $project);
+
+        $project->delete();
+
+        return redirect()->route('projects.index');
     }
 }
