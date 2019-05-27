@@ -3,13 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 
 class Project extends Model
 {
-    protected $guarded = [];
+    use RecordsActivity;
 
-    public $before = [];
+    protected $guarded = [];
 
     public function path(): string
     {
@@ -36,15 +35,6 @@ class Project extends Model
         return $this->hasMany(Activity::class)->latest();
     }
 
-    public function recordActivity(string $description)
-    {
-        return $this->activity()->create([
-            'user_id' => $this->activityOwner()->id,
-            'description' => $description,
-            'changes' => $this->activityChanges($description),
-        ]);
-    }
-
     public function activityOwner()
     {
         if (auth()->check()) {
@@ -54,15 +44,13 @@ class Project extends Model
         return $this->owner;
     }
 
-    protected function activityChanges(string $description)
+    protected static function recordableEvents()
     {
-        if ($description !== 'updated') {
-            return null;
-        }
+        return ['created', 'updated'];
+    }
 
-        return [
-            'before' => Arr::except(array_diff($this->before, $this->getAttributes()), 'updated_at'),
-            'after' => Arr::except($this->getChanges(), 'updated_at'),
-        ];
+    protected function activityDescription($description)
+    {
+        return $description;
     }
 }

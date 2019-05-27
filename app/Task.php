@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    use RecordsActivity;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -42,20 +44,6 @@ class Task extends Model
         $this->recordActivity('task_uncompleted');
     }
 
-    public function activity()
-    {
-        return $this->morphMany(Activity::class, 'subject')->latest();
-    }
-
-    public function recordActivity(string $description)
-    {
-        return $this->activity()->create([
-            'user_id' => $this->activityOwner()->id,
-            'project_id' => $this->project_id,
-            'description' => $description,
-        ]);
-    }
-
     public function activityOwner()
     {
         if (auth()->check()) {
@@ -63,5 +51,10 @@ class Task extends Model
         }
 
         return $this->project->owner;
+    }
+
+    protected static function recordableEvents()
+    {
+        return ['created', 'deleted'];
     }
 }
