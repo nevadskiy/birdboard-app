@@ -2,10 +2,24 @@
 
 @section('content')
     <header class="flex items-end mb-3 py-2">
-        <p class="text-gray-600 mr-auto text-lg">
+        <p class="text-gray-600 text-lg">
             <a href="{{ route('projects.index') }}">My projects</a> / {{ $project->title }}
         </p>
-        <a href="{{ route('projects.edit', $project) }}" class="button button--blue">Edit project</a>
+        <div class="ml-auto flex items-center">
+            @foreach ($project->members as $member)
+                <img
+                        src="{{ gravatar_url($member->email) }}"
+                        alt="{{ $member->name }}'s avatar"
+                        class="rounded-full w-8 h-8 mr-2">
+            @endforeach
+
+            <img
+                    src="{{ gravatar_url($project->owner->email) }}"
+                    alt="{{ $project->owner->name }}'s avatar"
+                    class="rounded-full w-8 h-8 mr-2">
+
+            <a href="{{ route('projects.edit', $project) }}" class="ml-4 button button--blue">Edit project</a>
+        </div>
     </header>
 
     <main>

@@ -27,4 +27,3 @@ Route::group([
 });
 
 Auth::routes();
-
