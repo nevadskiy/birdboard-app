@@ -43,4 +43,16 @@ class ProjectTest extends TestCase
     {
         $this->assertInstanceOf(Collection::class, factory(Project::class)->create()->tasks);
     }
+
+    /** @test */
+    function it_invites_a_user()
+    {
+        $project = factory(Project::class)->create();
+
+        $user = factory(User::class)->create();
+
+        $project->invite($user);
+
+        $this->assertTrue($project->members->contains($user));
+    }
 }

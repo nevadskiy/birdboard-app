@@ -14,7 +14,7 @@ class ProjectUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('update', $this->project());
+        return Gate::allows('touch', $this->project());
     }
 
     /**

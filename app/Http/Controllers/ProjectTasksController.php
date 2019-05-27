@@ -10,7 +10,7 @@ class ProjectTasksController extends Controller
 {
     public function store(Request $request, Project $project)
     {
-        $this->authorize('update', $project);
+        $this->authorize('touch', $project);
 
         $this->validate($request, [
             'body' => ['required']
@@ -23,7 +23,7 @@ class ProjectTasksController extends Controller
 
     public function update(Request $request, Project $project, Task $task)
     {
-        $this->authorize('update', $task->project);
+        $this->authorize('touch', $task->project);
 
         $attributes = $this->validate($request, [
             'body' => ['required']

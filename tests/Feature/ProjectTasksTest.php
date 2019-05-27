@@ -24,7 +24,8 @@ class ProjectTasksTest extends TestCase
     {
         $project = factory(Project::class)->create();
 
-        $this->signIn()->post(route('project.tasks.store', $project), ['body' => 'Test task'])
+        $this->signIn()
+            ->post(route('project.tasks.store', $project), ['body' => 'Test task'])
             ->assertForbidden();
 
         $this->assertDatabaseMissing('tasks', ['body' => 'Test task']);
@@ -35,7 +36,8 @@ class ProjectTasksTest extends TestCase
     {
         $project = factory(Project::class)->create();
 
-        $this->signIn($project->owner)->post(route('project.tasks.store', $project), ['body' => 'Test task']);
+        $this->signIn($project->owner)
+            ->post(route('project.tasks.store', $project), ['body' => 'Test task']);
 
         $this->get($project->path())
             ->assertOk()
