@@ -1,4 +1,4 @@
-<div class="card mt-4">
+<div class="card mt-4 mb-4">
     <ul class="text-sm">
         @foreach ($project->activity as $activity)
             <li class="mb-2">

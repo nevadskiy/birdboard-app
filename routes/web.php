@@ -23,6 +23,8 @@ Route::group([
     Route::post('projects/{project}/tasks', 'ProjectTasksController@store')->name('project.tasks.store');
     Route::put('projects/{project}/tasks/{task}', 'ProjectTasksController@update')->name('project.tasks.update');
 
+    Route::post('projects/{project}/invitations', 'ProjectInvitationsController@store')->name('project.invitations.store');
+
     Route::get('/home', 'HomeController@index')->name('home');
 });
 
