@@ -102,6 +102,22 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    function invited_members_cannot_delete_a_project()
+    {
+        $project = factory(Project::class)->create();
+
+        $member = factory(User::class)->create();
+
+        $project->invite($member);
+
+        $this->signIn($member)
+            ->delete($project->path())
+            ->assertForbidden();
+
+        $this->assertDatabaseHas('projects', $project->only('id'));
+    }
+
+    /** @test */
     function a_user_can_view_a_project_update_page()
     {
         $project = factory(Project::class)->create();
