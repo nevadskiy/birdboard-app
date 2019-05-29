@@ -19,7 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="theme-dark bg-page text-default">
+<body class="bg-page text-default">
     <div id="app">
         <nav class="bg-nav shadow-sm">
             <div class="container mx-auto">
@@ -28,25 +28,27 @@
                         <a class="font-bold" href="{{ route('projects.index') }}">{{ config('app.name') }}</a>
                     </div>
 
-                    <ul class="ml-auto">
+                    <div class="ml-auto flex items-center">
+                        <theme-switcher class="mr-8 flex items-center"></theme-switcher>
+
                         @guest
-                            <li class="nav-item">
+                            <div class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
+                            </div>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                <div class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
+                                </div>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <div class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle flex items-center" href="#" role="button">
                                     <img class="w-8 h-8 rounded-full mr-2" src="http://www.tsu.ru/upload/medialibrary/679/net-foto-m.png" alt="">
                                     {{ Auth::user()->name }}
                                 </a>
-                            </li>
+                            </div>
                         @endguest
-                    </ul>
+                    </div>
                 </div>
             </div>
         </nav>
