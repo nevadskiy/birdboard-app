@@ -4,7 +4,7 @@
     <form
             action="{{ route('projects.update', $project) }}"
             method="POST"
-            class="lg:w-1/2 lg:mx-auto bg-white p-6 md:py-12 md:px-16 rounded shadow"
+            class="lg:w-1/2 lg:mx-auto card"
     >
         @csrf
         @method('PUT')
@@ -18,7 +18,7 @@
             <input
                     id="title"
                     name="title"
-                    class="bg-transparent border border-gray-400 rounded p-2 text-sm w-full"
+                    class="bg-card-input border border-card-input rounded p-2 text-sm w-full"
                     type="text"
                     placeholder="Title"
                     value="{{ old('title', $project->title) }}"
@@ -31,7 +31,7 @@
                     id="description"
                     name="description"
                     rows="10"
-                    class="block bg-transparent border border-gray-400 rounded p-2 text-sm w-full"
+                    class="block bg-card-input border border-card-input rounded p-2 text-sm w-full"
                     type="text"
                     placeholder="Description"
             >{{ old('description', $project->description) }}</textarea>

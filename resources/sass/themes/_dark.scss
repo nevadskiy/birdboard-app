@@ -1,0 +1,18 @@
+.theme-dark {
+  // General
+  --color-danger: theme('colors.red.400');
+
+  // Text colors
+  --text-color-default: theme('colors.gray.100');
+  --text-color-heading: theme('colors.gray.200');
+  --text-color-accent: theme('colors.blue.500');
+
+  // Background colors
+  --page-background-color: theme('colors.gray.900');
+  --card-background-color: theme('colors.gray.700');
+  --nav-background-color: theme('colors.gray.700');
+  --card-input-background-color: theme('colors.gray.600');
+
+  // Border color
+  --card-input-border-color: theme('colors.gray.600');
+}

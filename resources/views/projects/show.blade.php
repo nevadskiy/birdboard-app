@@ -10,13 +10,15 @@
                 <img
                         src="{{ gravatar_url($member->email) }}"
                         alt="{{ $member->name }}'s avatar"
-                        class="rounded-full w-8 h-8 mr-2">
+                        class="rounded-full w-8 h-8 mr-2"
+                >
             @endforeach
 
             <img
                     src="{{ gravatar_url($project->owner->email) }}"
                     alt="{{ $project->owner->name }}'s avatar"
-                    class="rounded-full w-8 h-8 mr-2">
+                    class="rounded-full w-8 h-8 mr-2"
+            >
 
             <a href="{{ route('projects.edit', $project) }}" class="ml-4 button button-primary">Edit project</a>
         </div>
@@ -34,7 +36,7 @@
                                 @method('PUT')
 
                                 <div class="flex items-center">
-                                    <input type="text" value="{{ $task->body }}" name="body" class="w-full{{ $task->completed ? ' text-gray-500' : '' }}">
+                                    <input type="text" value="{{ $task->body }}" name="body" class="w-full bg-card {{ $task->completed ? ' text-gray-500' : '' }}">
                                     <input type="checkbox" name="completed" onchange="this.form.submit()"{{ $task->completed ? ' checked' : '' }}>
                                 </div>
                             </form>
@@ -69,6 +71,7 @@
 
             <div class="lg:w-1/4 px-3">
                 @include('projects._card')
+
                 @include('projects.activity._card')
 
                 @can('own', $project)

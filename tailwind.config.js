@@ -5,9 +5,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // default: theme => theme('colors.gray.900'),
-        primary: 'var(--color-primary)',
-        secondary: 'var(--color-secondary)',
+        danger: 'var(--color-danger)',
       },
       backgroundColor: {
         card: 'var(--card-background-color)',
@@ -17,6 +15,7 @@ module.exports = {
       },
       textColor: {
         default: 'var(--text-color-default)',
+        accent: 'var(--text-color-accent)',
         heading: 'var(--text-color-heading)',
       },
       borderColor: {

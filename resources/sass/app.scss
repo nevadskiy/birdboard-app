@@ -1,52 +1,11 @@
-.theme {
-    &-light {
-    // Text colors
-    --text-color-default: theme('colors.gray.900');
-    --text-color-heading: theme('colors.gray.600');
-
-    // Background colors
-    --page-background-color: theme('colors.gray.200');
-    --card-background-color: theme('colors.white');
-    --nav-background-color: theme('colors.white');
-
-    // Border color
-    --card-input-border-color: theme('colors.gray.500');
-  }
-
-  &-dark {
-    // Text colors
-    --text-color-default: theme('colors.gray.100');
-    --text-color-heading: theme('colors.gray.200');
-
-    // Background colors
-    --page-background-color: theme('colors.gray.900');
-    --card-background-color: theme('colors.gray.700');
-    --nav-background-color: theme('colors.gray.700');
-    --card-input-background-color: theme('colors.gray.600');
-
-    // Border color
-    --card-input-border-color: theme('colors.gray.600');
-  }
-}
-
 @tailwind base;
 
 @tailwind components;
 
 @tailwind utilities;
 
-.button {
-  @apply font-bold py-2 px-4 rounded;
+@import "themes/light";
+@import "themes/dark";
 
-  &-primary {
-    @apply bg-blue-500 text-white;
-
-    &:hover {
-      @apply bg-blue-600;
-    }
-  }
-}
-
-.card {
-  @apply bg-card rounded shadow px-3 py-4;
-}
+@import "components/button";
+@import "components/card";
