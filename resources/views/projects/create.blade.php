@@ -35,7 +35,7 @@
             ></textarea>
         </div>
 
-        <button type="submit" class="button button--blue mr-2">Create project</button>
+        <button type="submit" class="button button-primary mr-2">Create project</button>
         <a href="{{ route('projects.index') }}">Cancel</a>
     </form>
 @endsection

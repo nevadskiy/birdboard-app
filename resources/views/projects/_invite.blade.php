@@ -12,11 +12,11 @@
             <input
                     type="email"
                     name="email"
-                    class="border border-gray-500 rounded w-full py-2 px-3"
+                    class="border border-card-input rounded w-full py-2 px-3 bg-card-input"
                     placeholder="Email address"
             >
         </div>
 
-        <button class="button button--blue">Invite</button>
+        <button class="button button-primary">Invite</button>
     </form>
 </div>

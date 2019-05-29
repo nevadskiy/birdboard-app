@@ -37,7 +37,7 @@
             >{{ old('description', $project->description) }}</textarea>
         </div>
 
-        <button type="submit" class="button button--blue mr-2">Update project</button>
+        <button type="submit" class="button button-primary mr-2">Update project</button>
         <a href="{{ $project->path() }}">Cancel</a>
     </form>
 @endsection

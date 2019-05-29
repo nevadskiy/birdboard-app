@@ -2,7 +2,7 @@
 
 @section('content')
     <header class="flex items-end mb-3 py-2">
-        <p class="text-gray-600 text-lg">
+        <p class="text-heading text-lg">
             <a href="{{ route('projects.index') }}">My projects</a> / {{ $project->title }}
         </p>
         <div class="ml-auto flex items-center">
@@ -18,7 +18,7 @@
                     alt="{{ $project->owner->name }}'s avatar"
                     class="rounded-full w-8 h-8 mr-2">
 
-            <a href="{{ route('projects.edit', $project) }}" class="ml-4 button button--blue">Edit project</a>
+            <a href="{{ route('projects.edit', $project) }}" class="ml-4 button button-primary">Edit project</a>
         </div>
     </header>
 
@@ -26,7 +26,7 @@
         <div class="lg:flex -mx-3">
             <div class="lg:w-3/4 px-3 mb-6">
                 <div class="mb-8">
-                    <h2 class="text-gray-600 text-lg mb-2">Tasks</h2>
+                    <h2 class="text-heading text-lg mb-2">Tasks</h2>
                     @foreach ($project->tasks as $task)
                         <div class="card mb-3">
                             <form action="{{ $task->path() }}" method="POST">
@@ -44,12 +44,12 @@
                     <div class="card mb-3">
                         <form action="{{ route('project.tasks.store', $project) }}" method="POST">
                             @csrf
-                            <input name="body" type="text" placeholder="Add a new task..." class="w-full">
+                            <input name="body" type="text" placeholder="Add a new task..." class="w-full bg-card">
                         </form>
                     </div>
                 </div>
 
-                <h2 class="text-gray-600 text-lg mb-2">General notes</h2>
+                <h2 class="text-heading text-lg mb-2">General notes</h2>
 
                 <form action="{{ $project->path() }}" method="POST">
                     @csrf
@@ -63,7 +63,7 @@
 
                     @include('projects._validation')
 
-                    <button type="submit" class="button button--blue">Save</button>
+                    <button type="submit" class="button button-primary">Save</button>
                 </form>
             </div>
 

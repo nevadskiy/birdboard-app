@@ -3,6 +3,26 @@ module.exports = {
   important: false,
   separator: ':',
   theme: {
+    extend: {
+      colors: {
+        // default: theme => theme('colors.gray.900'),
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+      },
+      backgroundColor: {
+        card: 'var(--card-background-color)',
+        page: 'var(--page-background-color)',
+        nav: 'var(--nav-background-color)',
+        'card-input': 'var(--card-input-background-color)',
+      },
+      textColor: {
+        default: 'var(--text-color-default)',
+        heading: 'var(--text-color-heading)',
+      },
+      borderColor: {
+        'card-input': 'var(--card-input-border-color)',
+      }
+    },
     colors: {
       transparent: 'transparent',
 
